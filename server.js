@@ -1,22 +1,18 @@
-const path = require('path');
-const express = require('express');
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Function to resolve paths correctly after packaging
-function resolvePath(relativePath) {
-  if (process.pkg) {
-    // If running from the pkg executable, the path is resolved differently
-    return path.join(path.dirname(process.execPath), relativePath);
-  }
-  return path.join(__dirname, relativePath);
-}
-
-app.use(express.static(resolvePath('public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('*', (req, res) => {
-  res.sendFile(resolvePath('public/index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.listen(PORT, () => {
