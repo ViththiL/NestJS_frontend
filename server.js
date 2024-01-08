@@ -1,20 +1,22 @@
-import express from 'express';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const path = require('path');
+const express = require('express');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Serve static files from the 'public' directory where the Svelte app is built
-app.use(express.static('public'));
+// Function to resolve paths correctly after packaging
+function resolvePath(relativePath) {
+  if (process.pkg) {
+    // If running from the pkg executable, the path is resolved differently
+    return path.join(path.dirname(process.execPath), relativePath);
+  }
+  return path.join(__dirname, relativePath);
+}
 
-// Handle SPA fallback for client-side routing
+app.use(express.static(resolvePath('public')));
+
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+  res.sendFile(resolvePath('public/index.html'));
 });
 
 app.listen(PORT, () => {
