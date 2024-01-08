@@ -42,5 +42,4 @@ jobs:
         aws-region: 'ap-southeast-1' # Use your AWS region
 
     - name: Upload the binary to Amazon S3
-    #   run: aws s3 cp ./dist/my-svelte-app.exe s3://${{ secrets.AWS_BUCKET }}/dist/my-svelte-app.exe --acl public-read
-      run: aws s3 sync ./public s3://${{ secrets.AWS_BUCKET }}/ --delete
+      run: aws s3 cp ./dist/my-svelte-app.exe s3://${{ secrets.AWS_BUCKET }}/dist/my-svelte-app.exe --acl public-read
