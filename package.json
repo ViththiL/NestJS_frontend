@@ -10,6 +10,10 @@
     "package": "pkg . --targets node14-win-x64 --output ./dist/my-svelte-app"
   },
   "bin": "server.js",
+  "pkg": {
+    "assets": ["public/**/*", "server.js"],
+    "targets": ["node14-win-x64"]
+  },  
   "devDependencies": {
     "@rollup/plugin-commonjs": "^24.0.0",
     "@rollup/plugin-node-resolve": "^15.0.0",

@@ -29,10 +29,9 @@ jobs:
     - name: Build Svelte App
       run: npm run build
 
-    - name: Generate Binary
-      run: npm run package
-      # Replace 'server.js' with the path to your Node.js server script
-      # Adjust the 'pkg' command as needed for your setup
+    - name: Generate Binary for Server
+      run: pkg server.js --targets node14-win-x64 --output ./dist/my-svelte-app.exe
+      # Ensure server.js is set up to serve your Svelte app
 
     - name: Configure AWS CLI
       uses: aws-actions/configure-aws-credentials@v1
