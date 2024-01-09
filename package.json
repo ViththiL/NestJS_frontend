@@ -7,11 +7,11 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "start": "node server.js",
-    "package": "pkg . --targets node14-win-x64 --output ./dist/my-svelte-app"
+    "package": "pkg ./server.js --targets node14-win-x64 --output ./dist/my-svelte-app"
   },
   "bin": "server.js",
   "pkg": {
-    "scripts": "server.js",
+    "scripts": "./server.js",  // Adjusted the script path
     "assets": ["dist/**/*"]
   },  
   "devDependencies": {

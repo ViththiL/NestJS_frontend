@@ -6,6 +6,9 @@ import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+// Adjust the file path dynamically
+const serverFilePath = path.join(__dirname, 'server.js');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -18,3 +21,6 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+// Export the serverFilePath for reference in other parts of your code
+export { serverFilePath };
