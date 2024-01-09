@@ -14,7 +14,7 @@
   },
   "pkg": {
     "scripts": "server.cjs",
-    "assets": ["dist/**/*"]
+    "assets": ["dist/**/*", "public/**/*"]
   },  
   "devDependencies": {
     "@rollup/plugin-commonjs": "^24.0.0",
