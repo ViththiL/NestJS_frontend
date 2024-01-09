@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "node server.js",
+    "start": "node server.cjs --dev",
     "package": "pkg ./server.js --targets node14-win-x64 --output ./dist/my-svelte-app"
   },
   "bin": {
