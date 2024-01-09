@@ -1,16 +1,10 @@
 import express from 'express';
 import path from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-// Determine the correct path based on execution context
-const serverPath = process.pkg ? path.join(process.execPath, '../') : __dirname;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+const serverPath = process.pkg ? path.join(process.cwd(), '../') : process.cwd();
 
 app.use(express.static(path.join(serverPath, 'public')));
 
