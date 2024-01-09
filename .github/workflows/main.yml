@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: CI/CD Pipeline for Svelte App
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - '**'
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: windows-latest
 
     steps:
@@ -30,7 +30,7 @@ jobs:
       run: npm install -g pkg
 
     - name: Generate Binary
-      run: pkg ./build/server.js --targets node14-win-x64 --output ./dist/my-svelte-app.exe
+      run: pkg ./server.js --targets node14-win-x64 --output ./dist/my-svelte-app.exe
 
     - name: Configure AWS CLI
       uses: aws-actions/configure-aws-credentials@v1
