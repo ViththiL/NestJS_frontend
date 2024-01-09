@@ -4,18 +4,15 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Check if running inside the pkg executable
-const isPkg = typeof process.pkg !== 'undefined';
+// Determine the base path for static files
+const basePath = process.pkg ? path.dirname(process.execPath) : __dirname;
 
-// Set the base directory for static files
-const baseDir = isPkg ? path.join(path.dirname(process.execPath), 'snapshot', process.cwd()) : __dirname;
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(basePath, 'public')));
 
-// Serve static files
-app.use(express.static(path.join(baseDir, 'public')));
-
-// Send index.html for all requests
+// Handle all requests by sending the 'index.html' file
 app.get('*', (req, res) => {
-  res.sendFile(path.join(baseDir, 'public', 'index.html'));
+  res.sendFile(path.join(basePath, 'public', 'index.html'));
 });
 
 app.listen(PORT, () => {
