@@ -1,20 +1,34 @@
 const express = require('express');
 const path = require('path');
+const { readFileSync } = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Determine the base path for static files
-const basePath = process.pkg ? path.dirname(process.execPath) : __dirname;
+// Function to determine the path of a file within the pkg snapshot filesystem
+const getPath = (relativePath) => {
+    if (process.pkg) {
+        // If running from pkg executable, path is relative to the executable path
+        return path.join(path.dirname(process.execPath), relativePath);
+    }
+    // If running in development, path is relative to the current working directory
+    return path.join(__dirname, relativePath);
+};
 
-// Serve static files from the 'public' directory
-app.use(express.static(path.join(basePath, 'public')));
+// Serve static files
+app.use(express.static(getPath('public')));
 
 // Handle all requests by sending the 'index.html' file
 app.get('*', (req, res) => {
-  res.sendFile(path.join(basePath, 'public', 'index.html'));
+    try {
+        const indexPath = getPath('public/index.html');
+        const content = readFileSync(indexPath, 'utf-8');
+        res.send(content);
+    } catch (error) {
+        res.status(500).send('Error loading index.html');
+    }
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
