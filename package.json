@@ -9,9 +9,11 @@
     "start": "node server.js",
     "package": "pkg ./server.js --targets node14-win-x64 --output ./dist/my-svelte-app"
   },
-  "bin": "server.js",
+  "bin": {
+    "svelte-app": "./server.js"
+  },
   "pkg": {
-    "scripts": "./server.js",  // Adjusted the script path
+    "scripts": "./server.js",
     "assets": ["dist/**/*"]
   },  
   "devDependencies": {
