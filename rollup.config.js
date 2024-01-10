@@ -58,7 +58,7 @@ export default {
         !production && servePlugin({
             open: true,
             contentBase: 'public',
-            port: 5000
+            port: 3000
         }),
 
         !production && livereload('public'),
