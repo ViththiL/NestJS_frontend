@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build-binary": "pkg .",
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "start": "node server.cjs --dev",
