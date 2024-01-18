@@ -32,16 +32,16 @@ jobs:
       # This assumes you have a pkg configuration in your package.json or a separate config file
 
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: 'ap-southeast-1' # Use your AWS region
+      shell: bash
+      run: |
+        # Configure AWS CLI
+        aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY }}
+        aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws configure set default.region 'ap-southeast-1' # Use your AWS region
 
-    - name: Extract tag name
-      id: get_tag
-      run: echo "TAG_NAME=$(echo ${GITHUB_REF##*/})" >> $GITHUB_ENV
-      shell: bash      
+        # Extract tag name
+        TAG_NAME=$(echo ${GITHUB_REF##*/})
+        echo "Extracted tag name: $TAG_NAME"
 
-    - name: Upload the binary to Amazon S3
-      run: aws s3 cp ./dist/my-svelte-app.exe s3://${{ secrets.AWS_BUCKET }}/${{ env.TAG_NAME }}/front_end/my-svelte-app.exe --acl public-read
+        # Upload the binary to Amazon S3
+        aws s3 cp ./dist/my-svelte-app.exe s3://${{ secrets.AWS_BUCKET }}//$TAG_NAME/front_end/my-svelte-app --acl public-read
