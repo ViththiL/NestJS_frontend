@@ -44,4 +44,4 @@ jobs:
         echo "Extracted tag name: $TAG_NAME"
 
         # Upload the binary to Amazon S3
-        aws s3 cp ./dist/my-svelte-app.exe s3://${{ secrets.AWS_BUCKET }}//$TAG_NAME/front_end/my-svelte-app --acl public-read
+        aws s3 cp ./dist/my-svelte-app.exe s3://${{ secrets.AWS_BUCKET }}/$TAG_NAME/front_end/my-svelte-app --acl public-read
