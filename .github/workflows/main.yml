@@ -29,7 +29,8 @@ jobs:
 
     - name: Generate Binary
       run: pkg . --out-path dist/
-      
+      # This assumes you have a pkg configuration in your package.json or a separate config file
+
     - name: Configure AWS credentials
       shell: bash
       run: |
